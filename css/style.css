@@ -15,10 +15,27 @@ section.container {
 
 
 div.row { 
+    display: flex;
     width: 2rem; 
     height: 2rem;
     background-color: white;
     background-position: center;
     background-size: 29px;
     border: 1px solid blue;
+    justify-content: center;
+    align-items: center;
+}
+
+.disc {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+}
+
+.red {
+    background-color: red;
+}
+
+.black {
+    background-color: black;
 }
