@@ -33,5 +33,17 @@ for(let i = 0; i < COLUMNS; i++){
      
 }
 
+const postionArray = document.querySelectorAll('.row');
+
+postionArray.forEach(function(el,ind,arr){
+    el.addEventListener('click',clickColumns);
+});
+
+function clickColumns(event) {
+    const positionId = event.target.id;
+    const selectedColumn = document.getElementById(positionId).parentElement;
+    console.log(selectedColumn);
+};
+
 
 
