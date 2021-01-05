@@ -41,17 +41,16 @@ postionArray.forEach(function(el,ind,arr){
 
 let player = 1;
 
-
 function clickColumns(event) {
     const disc = document.createElement('div');
-   
+    let index = '';
 
     if( player === 1){
-        player = 2;
-        disc.setAttribute('class', 'disc red');
-    } else{
-        player = 1;
         disc.setAttribute('class', 'disc black');
+        player = 2;
+    } else{
+        disc.setAttribute('class', 'disc red');
+        player = 1;
     }
     const positionId = event.target.id;
     
@@ -64,11 +63,9 @@ function clickColumns(event) {
     for(let i = 0; i < 6; i++) {
      if (selectedColumn.children[i].childElementCount === 0) {
         selectedColumn.children[i].appendChild(disc)
+        index = selectedColumn.children[i].id
      }
     }
-
-   
-    
- 
+    board[index[0]][index[2]] = player;
 };
 
