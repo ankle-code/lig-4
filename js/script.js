@@ -1,6 +1,15 @@
 const section = document.querySelector('section')
-const LINES = 6
-const COLUMNS = 7
+const board = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+]
+
+const LINES = board.length
+const COLUMNS = board[0].length
 
 const disc = document.createElement('div');
 disc.setAttribute('class', 'disc red');
