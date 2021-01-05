@@ -2,6 +2,8 @@ const section = document.querySelector('section')
 const LINES = 6
 const COLUMNS = 7
 
+const disc = document.createElement('div');
+disc.setAttribute('class', 'disc red');
 
 //Cria LayOut
 for(let i = 0; i < COLUMNS; i++){
