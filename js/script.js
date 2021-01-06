@@ -58,7 +58,7 @@ function clickColumns(event) {
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
-        console.log(validation(index[0],index[2]))
+        validation(index[0],index[2])
        
     }    
     
@@ -88,7 +88,7 @@ function virifyHorizontal(posLine){
 function validation(posLine, posColumn){
     let output = false
     
-    if(virifyHorizontal(posLine) || virifyVertical(posLine, posColumn)){
+    if(virifyHorizontal(posLine) || virifyVertical(posLine, posColumn) || verifyDiagonalLeft(posLine, posColumn)){
         output = true
     }
   
@@ -110,3 +110,44 @@ function virifyVertical(posLine, posColumn){
     return output
 }
 
+function verifyDiagonalLeft(posLine, posColumn) {
+    posLine = Number(posLine);
+    posColumn = Number(posColumn)
+
+    let arrayDiagonalTopLeft = []; 
+    let arrayDiagonalTopRight = [];
+    let arrayDiagonalBottomLeft = [];
+    let arrayDiagonalBottomRight = [];
+    let output =  false;   
+
+    //console.log(posLine, posColumn)
+    for(let i = 0; i < 6; i++){
+        if(posLine- i > -1 && posColumn+i <= 6){
+            arrayDiagonalTopRight.push(board[posLine-i][posColumn+i])
+        }
+
+        if(posLine- i > -1 && posColumn-i <= 6 && board[posLine-i][posColumn-i] !== undefined){
+            arrayDiagonalTopLeft.push(board[posLine-i][posColumn-i])
+        }
+
+        if(posLine+ i < 6 && posColumn+i <= 6 && board[posLine+i][posColumn+i] !== undefined){
+            arrayDiagonalBottomRight.push(board[posLine+i][posColumn+i])
+        }
+
+        if(posLine+ i < 6 && posColumn-i <= 6 && board[posLine+i][posColumn-i] !== undefined){
+            console.log("aaa")
+            arrayDiagonalBottomLeft.push(board[posLine+i][posColumn-i])
+        }
+
+
+    }
+    //console.log(arrayDiagonalBottomLeft)
+    if( arrayDiagonalTopLeft.join("").includes("1111") || arrayDiagonalTopLeft.join("").includes("2222") ||
+        arrayDiagonalBottomRight.join("").includes("1111") || arrayDiagonalBottomRight.join("").includes("1111") ||
+        arrayDiagonalTopRight.join("").includes("1111") || arrayDiagonalTopRight.join("").includes("1111") ||
+        arrayDiagonalBottomLeft.join("").includes("1111") || arrayDiagonalBottomLeft.join("").includes("1111")){
+        console.log("Deu quatro");
+        output = true
+     }
+      return output
+};
