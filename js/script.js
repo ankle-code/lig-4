@@ -58,6 +58,9 @@ function clickColumns(event) {
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
+        
+        validation(index[0])
+
     }    
     
     if( player  === 1 && boardPosition !== undefined){
@@ -69,4 +72,34 @@ function clickColumns(event) {
         player = 1;
     }
 };
+
+function validation(posLine){
+    if(virifyHorizontal(posLine)){
+        return true
+    }
+    
+}
+
+function virifyHorizontal(posLine){
+    let output = false
+    let count = 1
+    const lineArray = board[posLine]
+
+    for(let i = 0; i < lineArray.length; i++){
+
+        if(lineArray[i] !== 0 ){
+            if(lineArray[i] === lineArray[i+1]){
+                count += 1
+                if(count >= 4){
+                    output = true
+                    break
+                }    
+            }else{
+                count = 1
+            }
+        }
+    }
+
+    return output
+}
 
