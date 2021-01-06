@@ -41,34 +41,31 @@ postionArray.forEach(function(el,ind,arr){
 
 let player = 1;
 
-
 function clickColumns(event) {
     const disc = document.createElement('div');
-   
-
-    if( player === 1){
-        player = 2;
-        disc.setAttribute('class', 'disc red');
-    } else{
-        player = 1;
-        disc.setAttribute('class', 'disc black');
-    }
     const positionId = event.target.id;
-    
-    const selectedRow = document.getElementById(positionId);
-    if (selectedRow === null){
-        return 
-    }
-    const selectedColumn = selectedRow.parentElement;
+    const selectedColumn = document.getElementById(positionId).parentElement;  
+    let index = '';
+    let boardPosition;
 
     for(let i = 0; i < 6; i++) {
-     if (selectedColumn.children[i].childElementCount === 0) {
-        selectedColumn.children[i].appendChild(disc)
-     }
-    }
+        const discsInside = selectedColumn.children[i].childElementCount;
 
-   
+        if (discsInside === 0) {
+            selectedColumn.children[i].appendChild(disc)
+            index = selectedColumn.children[i].id
+            boardPosition = board[index[0]][index[2]];
+            board[index[0]][index[2]] = player;
+        }
+    }
     
- 
+    if( player  === 1 && boardPosition !== undefined){
+        disc.setAttribute('class', 'disc black');
+        player = 2;
+    } 
+    else{
+        disc.setAttribute('class', 'disc red');
+        player = 1;
+    }
 };
 
