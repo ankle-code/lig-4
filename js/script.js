@@ -11,10 +11,8 @@ const board = [
 const LINES = board.length
 const COLUMNS = board[0].length
 
-//const disc = document.createElement('div');
-//disc.setAttribute('class', 'disc red');
 
-//Cria LayOut
+//Criate LayOut
 for(let i = 0; i < COLUMNS; i++){
 
     const divContainer = document.createElement('div')
@@ -45,19 +43,22 @@ function clickColumns(event) {
     const disc = document.createElement('div');
     const positionId = event.target.id;
     const selectedColumn = document.getElementById(positionId).parentElement;  
-    let index = '';
+    let index = null;
     let boardPosition;
 
     for(let i = 0; i < 6; i++) {
-        const discsInside = selectedColumn.children[i].childElementCount;
+        const discsInside = selectedColumn.children[i].childElementCount;        
 
         if (discsInside === 0) {
             selectedColumn.children[i].appendChild(disc)
             index = selectedColumn.children[i].id
-            boardPosition = board[index[0]][index[2]];
-            board[index[0]][index[2]] = player;
         }
-    }
+    } 
+
+    if(index !== null){
+        boardPosition = board[index[0]][index[2]];
+        board[index[0]][index[2]] = player;
+    }    
     
     if( player  === 1 && boardPosition !== undefined){
         disc.setAttribute('class', 'disc black');
