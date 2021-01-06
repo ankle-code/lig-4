@@ -58,9 +58,8 @@ function clickColumns(event) {
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
-        
-        validation(index[0])
-
+        console.log(validation(index[0],index[2]))
+       
     }    
     
     if( player  === 1 && boardPosition !== undefined){
@@ -73,12 +72,6 @@ function clickColumns(event) {
     }
 };
 
-function validation(posLine){
-    if(virifyHorizontal(posLine)){
-        return true
-    }
-    
-}
 
 function virifyHorizontal(posLine){
     let output = false
@@ -100,6 +93,32 @@ function virifyHorizontal(posLine){
         }
     }
 
+    return output
+}
+
+
+function validation(posLine, posColumn){
+    if(virifyHorizontal(posLine)){
+        return true
+    }
+    if(virifyVertical(posLine, posColumn)){
+        return true
+    }
+    return false
+}
+
+function virifyVertical(posLine, posColumn){
+    let output = false
+    let arrayColoumn = [];
+    
+    for(let i = 0; i < 6 ; i++){
+       let columnValue = board[i][posColumn];
+       arrayColoumn.push(columnValue)
+        
+    }
+   if( arrayColoumn.join("").includes("1111") || arrayColoumn.join("").includes("2222") ){
+      output = true
+   }
     return output
 }
 
