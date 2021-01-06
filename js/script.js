@@ -43,29 +43,29 @@ let player = 1;
 
 function clickColumns(event) {
     const disc = document.createElement('div');
+    const positionId = event.target.id;
+    const selectedColumn = document.getElementById(positionId).parentElement;  
     let index = '';
+    let boardPosition;
 
-    if( player === 1){
+    for(let i = 0; i < 6; i++) {
+        const discsInside = selectedColumn.children[i].childElementCount;
+
+        if (discsInside === 0) {
+            selectedColumn.children[i].appendChild(disc)
+            index = selectedColumn.children[i].id
+            boardPosition = board[index[0]][index[2]];
+            board[index[0]][index[2]] = player;
+        }
+    }
+    
+    if( player  === 1 && boardPosition !== undefined){
         disc.setAttribute('class', 'disc black');
         player = 2;
-    } else{
+    } 
+    else{
         disc.setAttribute('class', 'disc red');
         player = 1;
     }
-    const positionId = event.target.id;
-    
-    const selectedRow = document.getElementById(positionId);
-    if (selectedRow === null){
-        return 
-    }
-    const selectedColumn = selectedRow.parentElement;
-
-    for(let i = 0; i < 6; i++) {
-     if (selectedColumn.children[i].childElementCount === 0) {
-        selectedColumn.children[i].appendChild(disc)
-        index = selectedColumn.children[i].id
-     }
-    }
-    board[index[0]][index[2]] = player;
 };
 
