@@ -75,22 +75,10 @@ function clickColumns(event) {
 
 function virifyHorizontal(posLine){
     let output = false
-    let count = 1
     const lineArray = board[posLine]
 
-    for(let i = 0; i < lineArray.length; i++){
-
-        if(lineArray[i] !== 0 ){
-            if(lineArray[i] === lineArray[i+1]){
-                count += 1
-                if(count >= 4){
-                    output = true
-                    break
-                }    
-            }else{
-                count = 1
-            }
-        }
+    if( lineArray.join("").includes("1111") || lineArray.join("").includes("2222") ){
+        output = true
     }
 
     return output
@@ -98,13 +86,13 @@ function virifyHorizontal(posLine){
 
 
 function validation(posLine, posColumn){
-    if(virifyHorizontal(posLine)){
-        return true
+    let output = false
+    
+    if(virifyHorizontal(posLine) || virifyVertical(posLine, posColumn)){
+        output = true
     }
-    if(virifyVertical(posLine, posColumn)){
-        return true
-    }
-    return false
+  
+    return output
 }
 
 function virifyVertical(posLine, posColumn){
