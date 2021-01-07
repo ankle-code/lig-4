@@ -1,4 +1,4 @@
-const section = document.querySelector('section')
+const section = document.getElementById('section');
 const board = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -11,13 +11,12 @@ const board = [
 const LINES = board.length
 const COLUMNS = board[0].length
 
-
 //Criate LayOut
 for(let i = 0; i < COLUMNS; i++){
-
+    
     const divContainer = document.createElement('div')
     divContainer.setAttribute('class', 'column')
-
+    
     for(let j = 0; j < LINES; j++){
         
         const divLine = document.createElement('div')
@@ -26,10 +25,14 @@ for(let i = 0; i < COLUMNS; i++){
         divContainer.appendChild(divLine)
         
     }
-
+    
     section.appendChild(divContainer)
-     
+    
 }
+
+const message = document.createElement('p');
+message.classList.add('message');
+document.body.appendChild(message);
 
 const postionArray = document.querySelectorAll('.row');
 
@@ -53,12 +56,22 @@ function clickColumns(event) {
             selectedColumn.children[i].appendChild(disc)
             index = selectedColumn.children[i].id
         }
-    } 
+    }
+
+    let draw = verifyEmptySpaces(board);
+    if(draw === false){
+        message.innerText = "Empatou";
+    }
+
 
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
-        validation(index[0],index[2])
+        
+        if(validation(index[0],index[2])){
+            console.log('validou')
+            cleanBoard();
+        }
        
     }    
     
@@ -70,28 +83,26 @@ function clickColumns(event) {
         disc.setAttribute('class', 'disc red');
         player = 1;
     }
+
 };
-
-
-function virifyHorizontal(posLine){
-    let output = false
-    const lineArray = board[posLine]
-
-    if( lineArray.join("").includes("1111") || lineArray.join("").includes("2222") ){
-        output = true
-    }
-
-    return output
-}
 
 
 function validation(posLine, posColumn){
     let output = false
     
-    if(virifyHorizontal(posLine) || virifyVertical(posLine, posColumn) || verifyDiagonalLeft(posLine, posColumn)){
+    if(virifyHorizontal(posLine) || virifyVertical(posLine, posColumn) || verifyDiagonal(posLine, posColumn)){
         output = true
     }
   
+    return output
+}
+
+function virifyHorizontal(posLine){
+    let output = false
+    const lineArray = board[posLine]
+
+    output = verifyWinner(lineArray)
+
     return output
 }
 
@@ -102,17 +113,16 @@ function virifyVertical(posLine, posColumn){
     for(let i = 0; i < 6 ; i++){
        let columnValue = board[i][posColumn];
        arrayColoumn.push(columnValue)
-        
     }
 
-    if(arrayColoumn.join("").includes("1111") || arrayColoumn.join("").includes("2222") ){
-      output = true
-    }
-    
+    output = verifyWinner(arrayColoumn)
+
     return output
+    
+    
 }
 
-function verifyDiagonalLeft(posLine, posColumn) {
+function verifyDiagonal(posLine, posColumn) {
     posLine = Number(posLine);
     posColumn = Number(posColumn)
 
@@ -145,11 +155,47 @@ function verifyDiagonalLeft(posLine, posColumn) {
 
     let arrayLeftToRight = arrayDiagonalBottomLeft.reverse().concat(arrayDiagonalTopRight.slice(1));
     let arrayRightToLeft = arrayDiagonalBottomRight.reverse().concat(arrayDiagonalTopLeft.slice(1));
-    
-    if(arrayLeftToRight.join("").includes("1111") || arrayLeftToRight.join("").includes("2222") ||
-       arrayRightToLeft.join("").includes("1111") || arrayRightToLeft.join("").includes("2222")){
-            console.log("Deu quatro");
-            output = true;
+      
+    if (verifyWinner(arrayLeftToRight)){
+        output = true
+    }else if (verifyWinner(arrayRightToLeft)){
+        output = true
     }
+    
+    
     return output
 };
+
+
+function verifyEmptySpaces(board){
+    for(let i = 0; i< board.length; i++){
+        if(board[i].includes(0)){
+            return true
+        }
+    }
+    return false
+}
+
+
+function verifyWinner(array){
+
+    if(array.join("").includes("1111")){
+        message.innerText = "Preto Ganhou!";
+        return true
+    }
+    if(array.join("").includes("2222")){
+        message.innerText = "Vermelho Ganhou!";
+        return true
+    }
+
+}
+
+function cleanBoard(){
+    postionArray.forEach(function(el){
+        el.innerHTML = "";
+    })
+    board.forEach(function(el,ind){
+        board[ind] = [0, 0, 0, 0, 0, 0, 0];
+    })
+    message.innerText = "";
+}
