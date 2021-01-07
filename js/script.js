@@ -8,8 +8,35 @@ const board = [
     [0, 0, 0, 0, 0, 0, 0]
 ]
 
+const modeBtn = document.getElementById('mode');
+const darkImage = document.getElementById('darkImage');
+const lightImage = document.getElementById('lightImage');
+let dark = false;
+modeBtn.addEventListener('click',function(){
+    if(dark === false){
+        document.documentElement.style.setProperty('--backgroundColor', '#000');
+        document.documentElement.style.setProperty('--player1Color', '#00f');
+        document.documentElement.style.setProperty('--player2Color', ' #ff0');
+        document.documentElement.style.setProperty('--rowColor', '#fff');
+        
+        darkImage.classList.add('hidden');
+        lightImage.classList.remove('hidden');
+        dark = true;
+    }
+    else{
+        document.documentElement.style.setProperty('--backgroundColor', '#fff');
+        document.documentElement.style.setProperty('--player1Color', '#000');
+        document.documentElement.style.setProperty('--player2Color', '#f00');
+        document.documentElement.style.setProperty('--rowColor', '#00f');
+
+        lightImage.classList.add('hidden');
+        darkImage.classList.remove('hidden');
+        dark = false;
+    }
+})
+
 const LINES = board.length
-const COLUMNS = board[0].length
+const COLUMNS = board[0].length 
 
 //Criate LayOut
 for(let i = 0; i < COLUMNS; i++){

@@ -1,3 +1,10 @@
+:root{
+    --backgroundColor: #fff;
+    --player1Color: #000;
+    --player2Color: #f00;
+    --rowColor: #00f;
+}
+
 @keyframes discDrop{
     0%{
         top: -250px;
@@ -10,6 +17,7 @@ body{
     background-size: 20px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--backgroundColor);
 }
 
 section.container {
@@ -26,7 +34,7 @@ div.row {
     height: 2rem;
     background-position: center;
     background-size: 29px;
-    border: 1px solid blue;
+    border: 1px solid var(--rowColor);
     justify-content: center;
     align-items: center;
 }
@@ -41,14 +49,32 @@ div.row {
     top: 0;
 }
 
+.Mode{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    max-width: 75px;
+    margin-top: 50px;
+    cursor: pointer;
+    position: relative;
+    left: 40vw;
+}
+.Mode__Image{
+    width: 100%;
+}
+
+.hidden{
+    display: none;
+}
+
 .message{
     width: 100%;
 }
 
-.red {
-    background-color: red;
+.black {
+    background-color: var(--player1Color);
 }
 
-.black {
-    background-color: black;
+.red {
+    background-color: var(--player2Color);
 }
