@@ -9,6 +9,7 @@ const board = [
 ]
 
 const modeBtn = document.getElementById('mode');
+const resetBtn = document.getElementById('reset');
 const darkImage = document.getElementById('darkImage');
 const lightImage = document.getElementById('lightImage');
 let dark = false;
@@ -34,6 +35,8 @@ modeBtn.addEventListener('click',function(){
         dark = false;
     }
 })
+
+resetBtn.addEventListener('click', cleanBoard)
 
 const LINES = board.length
 const COLUMNS = board[0].length 
@@ -95,7 +98,6 @@ function clickColumns(event) {
             postionArray.forEach(function(el,ind,arr){
                 el.removeEventListener('click',clickColumns);
             });
-            cleanBoard();
         }
        
     }
@@ -106,7 +108,6 @@ function clickColumns(event) {
             el.removeEventListener('click',clickColumns);
         });
         message.innerText = "Empatou";
-        cleanBoard();
     }
     
     
