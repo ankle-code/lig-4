@@ -137,19 +137,19 @@ function verifyDiagonalLeft(posLine, posColumn) {
         }
 
         if(posLine+ i < 6 && posColumn-i <= 6 && board[posLine+i][posColumn-i] !== undefined){
-            console.log("aaa")
             arrayDiagonalBottomLeft.push(board[posLine+i][posColumn-i])
         }
 
 
     }
-    //console.log(arrayDiagonalBottomLeft)
-    if( arrayDiagonalTopLeft.join("").includes("1111") || arrayDiagonalTopLeft.join("").includes("2222") ||
-        arrayDiagonalBottomRight.join("").includes("1111") || arrayDiagonalBottomRight.join("").includes("1111") ||
-        arrayDiagonalTopRight.join("").includes("1111") || arrayDiagonalTopRight.join("").includes("1111") ||
-        arrayDiagonalBottomLeft.join("").includes("1111") || arrayDiagonalBottomLeft.join("").includes("1111")){
-        console.log("Deu quatro");
-        output = true
-     }
-      return output
+
+    let arrayLeftToRight = arrayDiagonalBottomLeft.reverse().concat(arrayDiagonalTopRight.slice(1));
+    let arrayRightToLeft = arrayDiagonalBottomRight.reverse().concat(arrayDiagonalTopLeft.slice(1));
+    
+    if(arrayLeftToRight.join("").includes("1111") || arrayLeftToRight.join("").includes("2222") ||
+       arrayRightToLeft.join("").includes("1111") || arrayRightToLeft.join("").includes("2222")){
+            console.log("Deu quatro");
+            output = true;
+    }
+    return output
 };
