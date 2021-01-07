@@ -88,6 +88,9 @@ function clickColumns(event) {
     let draw = verifyEmptySpaces(board);
     if(draw === false){
         message.innerText = "Empatou";
+        setTimeout(function(){
+            cleanBoard()
+        }, 1500);
     }
 
 
@@ -96,8 +99,10 @@ function clickColumns(event) {
         board[index[0]][index[2]] = player;
         
         if(validation(index[0],index[2])){
-            console.log('validou')
-            cleanBoard();
+            console.log('validou');
+            setTimeout(function(){
+                cleanBoard()
+            }, 1500);
         }
        
     }    
@@ -112,7 +117,6 @@ function clickColumns(event) {
     }
 
 };
-
 
 function validation(posLine, posColumn){
     let output = false
@@ -177,7 +181,6 @@ function verifyDiagonal(posLine, posColumn) {
             arrayDiagonalBottomLeft.push(board[posLine+i][posColumn-i])
         }
 
-
     }
 
     let arrayLeftToRight = arrayDiagonalBottomLeft.reverse().concat(arrayDiagonalTopRight.slice(1));
@@ -193,7 +196,6 @@ function verifyDiagonal(posLine, posColumn) {
     return output
 };
 
-
 function verifyEmptySpaces(board){
     for(let i = 0; i< board.length; i++){
         if(board[i].includes(0)){
@@ -202,7 +204,6 @@ function verifyEmptySpaces(board){
     }
     return false
 }
-
 
 function verifyWinner(array){
 
