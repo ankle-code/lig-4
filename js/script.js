@@ -69,6 +69,21 @@ postionArray.forEach(function(el,ind,arr){
 
 let player = 1;
 
+const selectFirstColorBtn = document.getElementById('discColor');
+
+selectFirstColorBtn.addEventListener("click", function(evt){
+    const selectedColor = evt.target.id;
+
+    if(player === 1) {
+        player = 2;
+
+    } else {
+        player = 1;
+    }
+
+    console.log(player);
+});
+
 function clickColumns(event) {
     const disc = document.createElement('div');
     const positionId = event.target.id;
@@ -119,6 +134,7 @@ function clickColumns(event) {
         player = 1;
     }
 
+    selectFirstColorBtn.classList.add('hidden')
 };
 
 function validation(posLine, posColumn){
