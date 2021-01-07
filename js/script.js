@@ -104,9 +104,11 @@ function virifyVertical(posLine, posColumn){
        arrayColoumn.push(columnValue)
         
     }
-   if( arrayColoumn.join("").includes("1111") || arrayColoumn.join("").includes("2222") ){
+
+    if(arrayColoumn.join("").includes("1111") || arrayColoumn.join("").includes("2222") ){
       output = true
-   }
+    }
+    
     return output
 }
 
