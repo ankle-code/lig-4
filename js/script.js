@@ -9,6 +9,7 @@ const board = [
 ]
 
 const modeBtn = document.getElementById('mode');
+const resetBtn = document.getElementById('reset');
 const darkImage = document.getElementById('darkImage');
 const lightImage = document.getElementById('lightImage');
 let dark = false;
@@ -34,6 +35,8 @@ modeBtn.addEventListener('click',function(){
         dark = false;
     }
 })
+
+resetBtn.addEventListener('click', cleanBoard)
 
 const LINES = board.length
 const COLUMNS = board[0].length 
@@ -69,6 +72,21 @@ postionArray.forEach(function(el,ind,arr){
 
 let player = 1;
 
+const selectFirstColorBtn = document.getElementById('discColor');
+
+selectFirstColorBtn.addEventListener("click", function(evt){
+    const selectedColor = evt.target.id;
+
+    if(player === 1) {
+        player = 2;
+
+    } else {
+        player = 1;
+    }
+
+    console.log(player);
+});
+
 function clickColumns(event) {
     const disc = document.createElement('div');
     const positionId = event.target.id;
@@ -85,16 +103,28 @@ function clickColumns(event) {
         }
     }
 
+   
+
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
         
         if(validation(index[0],index[2])){
-            console.log('validou')
-            //cleanBoard();
+            postionArray.forEach(function(el,ind,arr){
+                el.removeEventListener('click',clickColumns);
+            });
         }
-        
-    }    
+       
+    }
+
+    let draw = verifyEmptySpaces(board);
+    if(draw === false){
+        postionArray.forEach(function(el,ind,arr){
+            el.removeEventListener('click',clickColumns);
+        });
+        message.innerText = "Empatou";
+    }
+    
     
     let draw = verifyEmptySpaces(board);
     if(draw === false){
@@ -109,9 +139,9 @@ function clickColumns(event) {
         disc.setAttribute('class', 'disc player2');
         player = 1;
     }
-    
-};
 
+    selectFirstColorBtn.classList.add('hidden')
+};
 
 function validation(posLine, posColumn){
     let output = false
@@ -176,22 +206,18 @@ function verifyDiagonal(posLine, posColumn) {
             arrayDiagonalBottomLeft.push(board[posLine+i][posColumn-i])
         }
 
-
     }
 
     let arrayLeftToRight = arrayDiagonalBottomLeft.reverse().concat(arrayDiagonalTopRight.slice(1));
     let arrayRightToLeft = arrayDiagonalBottomRight.reverse().concat(arrayDiagonalTopLeft.slice(1));
       
-    if (verifyWinner(arrayLeftToRight)){
-        output = true
-    }else if (verifyWinner(arrayRightToLeft)){
+    if (verifyWinner(arrayLeftToRight) || verifyWinner(arrayRightToLeft)){
         output = true
     }
     
     
     return output
 };
-
 
 function verifyEmptySpaces(board){
     for(let i = 0; i< board.length; i++){
@@ -201,7 +227,6 @@ function verifyEmptySpaces(board){
     }
     return false
 }
-
 
 function verifyWinner(array){
 
@@ -219,9 +244,11 @@ function verifyWinner(array){
 function cleanBoard(){
     postionArray.forEach(function(el){
         el.innerHTML = "";
+        el.addEventListener('click',clickColumns);
     })
     board.forEach(function(el,ind){
         board[ind] = [0, 0, 0, 0, 0, 0, 0];
     })
     message.innerText = "";
+    
 }

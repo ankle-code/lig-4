@@ -27,6 +27,18 @@ section.container {
     padding-top: 6rem;
 }
 
+.modal {
+    display: flex; 
+    position: absolute;
+    background-color: white;
+    top: 165px;
+    border: 1px solid red;
+    width: 80vw;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
 
 div.row { 
     display: flex;
@@ -82,3 +94,38 @@ div.row {
     background-color: var(--player2Color);
 }
 
+.efeito{
+    border: none;
+    color: #ffffff;
+    padding: 20px;
+    margin: 10px;
+    font-size: 24px;
+    line-height: 24px;
+    border-radius: 10px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 400ms ease;
+    top: 450px;
+    right: 40px;
+}
+
+.efeito-1{
+    background-color: #28348A;
+}
+
+.efeito-1::before{
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 64px;
+    background: rgba(255, 255, 255,0.3);
+    border-radius: 10px;
+    transition: all 2s ease;
+}
+
+.efeito-1:hover::before{
+    width: 100%;
+}
