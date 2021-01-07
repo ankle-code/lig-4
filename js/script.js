@@ -15,19 +15,19 @@ let dark = false;
 modeBtn.addEventListener('click',function(){
     if(dark === false){
         document.documentElement.style.setProperty('--backgroundColor', '#000');
-        document.documentElement.style.setProperty('--player1Color', '#00f');
-        document.documentElement.style.setProperty('--player2Color', ' #ff0');
-        document.documentElement.style.setProperty('--rowColor', '#fff');
+        document.documentElement.style.setProperty('--player1Color', '#00DBDE');
+        document.documentElement.style.setProperty('--player2Color', '#FF00B3');
+        document.documentElement.style.setProperty('--foregroundColor', '#fff');
         
         darkImage.classList.add('hidden');
         lightImage.classList.remove('hidden');
         dark = true;
     }
     else{
-        document.documentElement.style.setProperty('--backgroundColor', '#fff');
-        document.documentElement.style.setProperty('--player1Color', '#000');
-        document.documentElement.style.setProperty('--player2Color', '#f00');
-        document.documentElement.style.setProperty('--rowColor', '#00f');
+        document.documentElement.style.setProperty('--backgroundColor', '#ffff');
+        document.documentElement.style.setProperty('--player1Color', '#2BFF88');
+        document.documentElement.style.setProperty('--player2Color', '#FA8BFF');
+        document.documentElement.style.setProperty('--foregroundColor', '#000');
 
         lightImage.classList.add('hidden');
         darkImage.classList.remove('hidden');
@@ -85,32 +85,31 @@ function clickColumns(event) {
         }
     }
 
-    let draw = verifyEmptySpaces(board);
-    if(draw === false){
-        message.innerText = "Empatou";
-    }
-
-
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
         
         if(validation(index[0],index[2])){
             console.log('validou')
-            cleanBoard();
+            //cleanBoard();
         }
-       
+        
     }    
     
+    let draw = verifyEmptySpaces(board);
+    if(draw === false){
+        message.innerText = "Empatou";
+    }
+
     if( player  === 1 && boardPosition !== undefined){
-        disc.setAttribute('class', 'disc black');
+        disc.setAttribute('class', 'disc player1');
         player = 2;
     } 
     else{
-        disc.setAttribute('class', 'disc red');
+        disc.setAttribute('class', 'disc player2');
         player = 1;
     }
-
+    
 };
 
 
