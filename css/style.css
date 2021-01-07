@@ -52,3 +52,12 @@ div.row {
 .black {
     background-color: black;
 }
+
+.modal {
+    position:absolute;
+    width: 300px;
+    height: 300px;
+    border: 1px solid red;
+    
+
+}
