@@ -27,6 +27,18 @@ section.container {
     padding-top: 6rem;
 }
 
+.modal {
+    display: flex; 
+    position: absolute;
+    background-color: white;
+    top: 165px;
+    border: 1px solid red;
+    width: 80vw;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
 
 div.row { 
     display: flex;

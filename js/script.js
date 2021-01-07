@@ -85,22 +85,30 @@ function clickColumns(event) {
         }
     }
 
-    let draw = verifyEmptySpaces(board);
-    if(draw === false){
-        message.innerText = "Empatou";
-    }
-
+   
 
     if(index !== null){
         boardPosition = board[index[0]][index[2]];
         board[index[0]][index[2]] = player;
         
         if(validation(index[0],index[2])){
-            console.log('validou')
+            postionArray.forEach(function(el,ind,arr){
+                el.removeEventListener('click',clickColumns);
+            });
             cleanBoard();
         }
        
-    }    
+    }
+
+    let draw = verifyEmptySpaces(board);
+    if(draw === false){
+        postionArray.forEach(function(el,ind,arr){
+            el.removeEventListener('click',clickColumns);
+        });
+        message.innerText = "Empatou";
+        cleanBoard();
+    }
+    
     
     if( player  === 1 && boardPosition !== undefined){
         disc.setAttribute('class', 'disc black');
@@ -183,9 +191,7 @@ function verifyDiagonal(posLine, posColumn) {
     let arrayLeftToRight = arrayDiagonalBottomLeft.reverse().concat(arrayDiagonalTopRight.slice(1));
     let arrayRightToLeft = arrayDiagonalBottomRight.reverse().concat(arrayDiagonalTopLeft.slice(1));
       
-    if (verifyWinner(arrayLeftToRight)){
-        output = true
-    }else if (verifyWinner(arrayRightToLeft)){
+    if (verifyWinner(arrayLeftToRight) || verifyWinner(arrayRightToLeft)){
         output = true
     }
     
@@ -220,9 +226,11 @@ function verifyWinner(array){
 function cleanBoard(){
     postionArray.forEach(function(el){
         el.innerHTML = "";
+        el.addEventListener('click',clickColumns);
     })
     board.forEach(function(el,ind){
         board[ind] = [0, 0, 0, 0, 0, 0, 0];
     })
     message.innerText = "";
+    
 }
