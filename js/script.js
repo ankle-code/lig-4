@@ -19,6 +19,7 @@ modeBtn.addEventListener('click',function(){
         document.documentElement.style.setProperty('--player1Color', '#00DBDE');
         document.documentElement.style.setProperty('--player2Color', '#FF00B3');
         document.documentElement.style.setProperty('--foregroundColor', '#fff');
+        document.documentElement.style.setProperty('--efectColor', '#ff00ff');
         
         darkImage.classList.add('hidden');
         lightImage.classList.remove('hidden');
@@ -29,6 +30,7 @@ modeBtn.addEventListener('click',function(){
         document.documentElement.style.setProperty('--player1Color', '#2BFF88');
         document.documentElement.style.setProperty('--player2Color', '#FA8BFF');
         document.documentElement.style.setProperty('--foregroundColor', '#000');
+        document.documentElement.style.setProperty('--efectColor', '#7bcfff');
 
         lightImage.classList.add('hidden');
         darkImage.classList.remove('hidden');
@@ -60,9 +62,8 @@ for(let i = 0; i < COLUMNS; i++){
     
 }
 
-const message = document.createElement('p');
+const message = document.getElementById('message');
 message.classList.add('message');
-document.body.appendChild(message);
 
 const postionArray = document.querySelectorAll('.row');
 
@@ -93,6 +94,7 @@ function clickColumns(event) {
     const selectedColumn = document.getElementById(positionId).parentElement;  
     let index = null;
     let boardPosition;
+    const ballMessage = document.getElementById('ballMessage');
 
     for(let i = 0; i < 6; i++) {
         const discsInside = selectedColumn.children[i].childElementCount;        
@@ -122,21 +124,17 @@ function clickColumns(event) {
         postionArray.forEach(function(el,ind,arr){
             el.removeEventListener('click',clickColumns);
         });
-        message.innerText = "Empatou";
+        message.innerHTML = '<span class="empate"> Empatou :S</span>'
     }
     
-    
-    let draw = verifyEmptySpaces(board);
-    if(draw === false){
-        message.innerText = "Empatou";
-    }
-
     if( player  === 1 && boardPosition !== undefined){
         disc.setAttribute('class', 'disc player1');
+        ballMessage.innerHTML = 'NEXT: ' + '<span class="player2--text"> O</span>'
         player = 2;
     } 
     else{
         disc.setAttribute('class', 'disc player2');
+        ballMessage.innerHTML = 'NEXT: ' + '<span class="player1--text"> O</span>'
         player = 1;
     }
 
@@ -231,11 +229,11 @@ function verifyEmptySpaces(board){
 function verifyWinner(array){
 
     if(array.join("").includes("1111")){
-        message.innerText = "Preto Ganhou!";
+        message.innerHTML = '<span class="player1--text"> Player 1</span>' + ' Ganhou :^)'
         return true
     }
     if(array.join("").includes("2222")){
-        message.innerText = "Vermelho Ganhou!";
+        message.innerHTML = '<span class="player2--text"> Player 2</span>' + ' Ganhou :^)'
         return true
     }
 
@@ -249,6 +247,7 @@ function cleanBoard(){
     board.forEach(function(el,ind){
         board[ind] = [0, 0, 0, 0, 0, 0, 0];
     })
-    message.innerText = "";
-    
+    selectFirstColorBtn.classList.remove('hidden');
+    message.innerText = "";    
+    ballMessage.innerHTML = "";
 }

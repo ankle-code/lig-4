@@ -3,11 +3,19 @@
     --player1Color: #2BFF88;
     --player2Color: #FA8BFF;
     --foregroundColor: #000;
+    --efectColor: #7bcfff;
+    --highlightColor: #ffcc23;
 }
 
 @keyframes discDrop{
     0%{
         top: -700px;
+    }
+    50%{
+        top: 0px;
+    }
+    75%{
+        top: -50px;
     }
 }
 
@@ -24,21 +32,8 @@ section.container {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: 6rem;
+    margin-top: 5vh;
 }
-
-.modal {
-    display: flex; 
-    position: absolute;
-    background-color: white;
-    top: 165px;
-    border: 1px solid red;
-    width: 80vw;
-    height: 50vh;
-    justify-content: center;
-    align-items: center;
-}
-
 
 div.row { 
     display: flex;
@@ -51,12 +46,25 @@ div.row {
     align-items: center;
 }
 
+.title{
+    color: var(--efectColor);
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.text{
+    font-weight: bold;
+    font-size: 3rem;
+    margin: 20px 10px;
+    color: var(--foregroundColor);
+}
+
 .disc {
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 100%;
     z-index: -1;
-    animation: discDrop 0.5s ease-in;
+    animation: discDrop 0.5s ease-in-out;
     position: relative;
     top: 0;
 }
@@ -66,10 +74,7 @@ div.row {
     border: none;
     outline: none;
     max-width: 100px;
-    margin-top: 50px;
     cursor: pointer;
-    position: relative;
-    left: 40vw;
 }
 .Mode__Image{
     width: 100%;
@@ -84,19 +89,32 @@ div.row {
     color: var(--foregroundColor);
     font-size: 2rem;
     font-weight: bold;
+    margin: 20px 0;
 }
 
 .player1 {
     background-color: var(--player1Color);
 }
 
+.player1--text{
+    color: var(--player1Color);
+}
+
 .player2 {
     background-color: var(--player2Color);
 }
 
+.player2--text{
+    color: var(--player2Color);
+}
+
+.empate{
+    color: var(--highlightColor);
+}
+
 .efeito{
     border: none;
-    color: #ffffff;
+    color: var(--backgroundColor);
     padding: 20px;
     margin: 10px;
     font-size: 24px;
@@ -106,12 +124,11 @@ div.row {
     box-sizing: border-box;
     cursor: pointer;
     transition: all 400ms ease;
-    top: 450px;
-    right: 40px;
+    outline: none;
 }
 
 .efeito-1{
-    background-color: #28348A;
+    background-color:var(--foregroundColor);
 }
 
 .efeito-1::before{
@@ -120,12 +137,57 @@ div.row {
     top: 0px;
     left: 0px;
     width: 0px;
-    height: 64px;
-    background: rgba(255, 255, 255,0.3);
+    height: 74px;
+    background: var(--efectColor);
+    opacity: 0.5;
     border-radius: 10px;
-    transition: all 2s ease;
+    transition: all 1s ease-in;
 }
 
 .efeito-1:hover::before{
     width: 100%;
+}
+
+.painel{
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 700px){
+    div.row { 
+        display: flex;
+        width: 3rem; 
+        height: 3rem;
+    }
+    
+    .disc {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 500px){
+    div.row { 
+        display: flex;
+        width: 2rem; 
+        height: 2rem;
+    }
+    
+    .disc {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .painel{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    div.row{
+        border: 3px solid var(--foregroundColor);
+    }
+
+    .efeito-1::before{
+        height: 64px;
+    }
 }
