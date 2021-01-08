@@ -58,8 +58,8 @@ div.row {
 }
 
 .title--hidden{
-    font-size: 2rem;
-    color: var(--backgroundColor);;
+    font-size: 1.75rem;
+    color: var(--backgroundColor);
 }
 
 .text{
@@ -147,7 +147,7 @@ div.row {
     top: 0px;
     left: 0px;
     width: 0px;
-    height: 74px;
+    height: 75px;
     background: var(--efectColor);
     opacity: 0.5;
     border-radius: 10px;
