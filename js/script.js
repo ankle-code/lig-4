@@ -15,11 +15,11 @@ const lightImage = document.getElementById('lightImage');
 let dark = false;
 modeBtn.addEventListener('click',function(){
     if(dark === false){
-        document.documentElement.style.setProperty('--backgroundColor', '#000');
+        document.documentElement.style.setProperty('--backgroundColor', '#000000');
         document.documentElement.style.setProperty('--player1Color', '#00DBDE');
         document.documentElement.style.setProperty('--player2Color', '#FF00B3');
         document.documentElement.style.setProperty('--foregroundColor', '#fff');
-        document.documentElement.style.setProperty('--efectColor', '#ff00ff');
+        document.documentElement.style.setProperty('--efectColor', '#000');
         
         darkImage.classList.add('hidden');
         lightImage.classList.remove('hidden');
@@ -29,8 +29,8 @@ modeBtn.addEventListener('click',function(){
         document.documentElement.style.setProperty('--backgroundColor', '#ffff');
         document.documentElement.style.setProperty('--player1Color', '#2BFF88');
         document.documentElement.style.setProperty('--player2Color', '#FA8BFF');
-        document.documentElement.style.setProperty('--foregroundColor', '#000');
-        document.documentElement.style.setProperty('--efectColor', '#7bcfff');
+        document.documentElement.style.setProperty('--foregroundColor', '#000000');
+        document.documentElement.style.setProperty('--efectColor', '#ffffff');
 
         lightImage.classList.add('hidden');
         darkImage.classList.remove('hidden');
@@ -74,18 +74,29 @@ postionArray.forEach(function(el,ind,arr){
 let player = 1;
 
 const selectFirstColorBtn = document.getElementById('discColor');
+let changeColor = false;
 
-selectFirstColorBtn.addEventListener("click", function(evt){
-    const selectedColor = evt.target.id;
-
-    if(player === 1) {
-        player = 2;
-
-    } else {
-        player = 1;
+selectFirstColorBtn.addEventListener("click", function(){
+    if(dark === false && changeColor === false){
+        document.documentElement.style.setProperty('--player1Color', '#FA8BFF');
+        document.documentElement.style.setProperty('--player2Color', '#2BFF88');
+        changeColor = true;
     }
-
-    console.log(player);
+    else if(dark === false && changeColor === true){
+        document.documentElement.style.setProperty('--player1Color', '#2BFF88');
+        document.documentElement.style.setProperty('--player2Color', '#FA8BFF');
+        changeColor = false;
+    }
+    if(dark === true && changeColor === false){
+        document.documentElement.style.setProperty('--player1Color', '#FF00B3');
+        document.documentElement.style.setProperty('--player2Color', '#00DBDE');
+        changeColor = true;
+    }
+    else if(dark === true && changeColor === true){
+        document.documentElement.style.setProperty('--player1Color', '#00DBDE');
+        document.documentElement.style.setProperty('--player2Color', '#FA8BFF');
+        changeColor = false;
+    }
 });
 
 function clickColumns(event) {
@@ -248,6 +259,7 @@ function cleanBoard(){
         board[ind] = [0, 0, 0, 0, 0, 0, 0];
     })
     selectFirstColorBtn.classList.remove('hidden');
+    player = 1;
     message.innerText = "";    
     ballMessage.innerHTML = "";
 }
